@@ -45,7 +45,7 @@ Redesigned the loan origination workflow using AI-enhanced intake, automated inc
 
 ---
 
-### 🤖 Data Validation Platform
+[### 🤖 Data Validation Platform](https://github.com/oabinalshaikh-creator/Data-Validation.git)
 
 Owned a B2B AI/ML data validation platform combining:
 
