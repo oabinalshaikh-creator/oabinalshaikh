@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omar BinAlshaikh — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7;
+    --ink:#1A2332;
+    --line:#C8CDD6;
+    --accent:#8B1E3F;
+    --muted:#5B6472;
+    --ledger:#2D5F4C;
+    --gold:#9C7A2E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E7E0;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+
+  .page{
+    max-width:940px;
+    margin:40px auto;
+    background:var(--paper);
+    box-shadow:0 4px 24px rgba(26,35,50,0.12), 0 1px 3px rgba(26,35,50,0.08);
+    position:relative;
+  }
+  .inner{padding:0 76px;}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{
+    max-width:940px;
+    margin:0 auto;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    padding:0 4px 12px;
+  }
+  .toolbar button{
+    font-family:'IBM Plex Sans',sans-serif;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    padding:9px 16px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{background:var(--accent);}
+  .toolbar button.secondary{background:transparent;color:var(--ink);border:1px solid var(--line);}
+  .toolbar button.secondary:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  #copyToast{font-size:12px;color:var(--muted);align-self:center;margin-right:auto;opacity:0;transition:opacity .25s;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 76px 40px;
+    border-bottom:2.5px solid var(--ink);
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .hero h1{
+    font-family:'Newsreader',serif;
+    font-weight:600;
+    font-size:44px;
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 18px;
+    max-width:9.5em;
+  }
+  .hero h1 em{color:var(--accent);font-style:normal;}
+  .hero-sub{
+    font-size:16px;
+    line-height:1.65;
+    color:#2b3547;
+    max-width:34em;
+    margin:0 0 26px;
+  }
+  .hero-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .identity{
+    font-family:'Newsreader',serif;
+    font-size:17px;
+    font-weight:600;
+  }
+  .identity .role{
+    display:block;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:400;
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  .contact{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    text-align:right;
+    line-height:1.9;
+  }
+  .contact a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
+  .contact a:hover{color:var(--accent);border-color:var(--accent);}
+
+  /* ---------- ledger strip ---------- */
+  .ledger{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-bottom:1px solid var(--line);
+  }
+  .ledger-item{
+    padding:20px 76px 20px 0;
+    border-right:1px solid var(--line);
+    padding-left:24px;
+  }
+  .ledger-item:first-child{padding-left:76px;}
+  .ledger-item:last-child{border-right:none;padding-right:76px;}
+  .ledger-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:24px;
+    font-weight:600;
+    color:var(--ledger);
+    display:block;
+  }
+  .ledger-label{
+    font-size:10.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:block;
+    margin-top:6px;
+    line-height:1.4;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:48px 76px;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:30px;
+  }
+  .sec-title{
+    font-family:'Newsreader',serif;
+    font-size:24px;
+    font-weight:600;
+    margin:0;
+  }
+  .sec-note{
+    font-size:11.5px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* ---------- skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:32px 48px;
+  }
+  .skill-cat h3{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .skill-tag{
+    font-size:12px;
+    font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--line);
+    padding:6px 11px;
+    color:var(--ink);
+    background:#fff;
+  }
+
+  /* ---------- case files ---------- */
+  .case-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
+  }
+  .case{
+    border:1px solid var(--line);
+    background:#fff;
+    padding:26px 24px 24px;
+    position:relative;
+    overflow:hidden;
+    page-break-inside:avoid;
+  }
+  .case-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:12px;
+  }
+  .case-no{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    letter-spacing:0.05em;
+  }
+  .case h3{
+    font-family:'Newsreader',serif;
+    font-size:18px;
+    font-weight:600;
+    margin:6px 0 0;
+    line-height:1.25;
+  }
+  .case p{
+    font-size:13px;
+    line-height:1.62;
+    color:#2b3547;
+    margin:0;
+  }
+  .stamp{
+    position:absolute;
+    top:22px;
+    right:-8px;
+    transform:rotate(6deg);
+    border:2px solid var(--accent);
+    color:var(--accent);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    padding:5px 10px;
+    text-align:center;
+    white-space:nowrap;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .case-tags{
+    margin-top:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .case-tags span{
+    font-size:10px;
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:3px 7px;
+  }
+  .case-link{
+    display:inline-block;
+    margin-top:16px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+  }
+  .case-link:hover{color:var(--ink);border-color:var(--ink);}
+
+  /* ---------- practice strip ---------- */
+  .practice-list{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+    border-top:1px solid var(--line);
+  }
+  .practice-item{
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+    align-items:start;
+  }
+  .practice-item:last-child{border-bottom:none;}
+  .practice-mark{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--gold);
+    font-weight:600;
+    padding-top:3px;
+  }
+  .practice-item h4{
+    font-family:'Newsreader',serif;
+    font-size:16.5px;
+    font-weight:600;
+    margin:0 0 5px;
+  }
+  .practice-item p{
+    font-size:13px;
+    line-height:1.6;
+    color:#2b3547;
+    margin:0;
+    max-width:44em;
+  }
+
+  /* ---------- education / creds ---------- */
+  .grid-two{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .ed-item{margin-bottom:12px;font-size:13.5px;line-height:1.5;}
+  .ed-degree{font-weight:600;}
+  .ed-school{color:var(--muted);font-size:12.5px;}
+
+  footer{
+    padding:26px 76px 40px;
+    font-size:10.5px;
+    color:var(--muted);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    @page{margin:12mm 14mm;}
+    html,body{background:#fff;}
+    .toolbar{display:none;}
+    .page{box-shadow:none;margin:0;max-width:none;}
+    .hero,.ledger-item:first-child,.ledger-item:last-child,section,footer,.inner{padding-left:0;padding-right:0;}
+    .stamp,.sec-title,.eyebrow,.ledger-num{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .case-grid{grid-template-columns:1fr 1fr;}
+    section{padding:28px 0;}
+  }
+
+  @media (max-width:720px){
+    .page{margin:0;box-shadow:none;}
+    .hero{padding:40px 24px 28px;}
+    .hero-meta{flex-direction:column;align-items:flex-start;}
+    .contact{text-align:left;}
+    .ledger{grid-template-columns:1fr 1fr;}
+    .ledger-item,.ledger-item:first-child,.ledger-item:last-child{padding:18px 20px;border-right:1px solid var(--line);}
+    section{padding:36px 24px;}
+    .skills-grid,.case-grid,.grid-two{grid-template-columns:1fr;}
+    footer{padding:24px;flex-direction:column;gap:6px;}
+    .toolbar{padding:16px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span id="copyToast">Link copied</span>
+  <button class="secondary" onclick="copyLink()">Copy link</button>
+  <button onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<div class="page" id="portfolio">
+
+  <div class="hero">
+    <p class="eyebrow">Portfolio · Product &amp; AI Leadership</p>
+    <h1>Turning regulated, document-heavy workflows into <em>AI-native systems</em>.</h1>
+    <p class="hero-sub">Twelve-plus years in product, ten building AI/LLM systems inside mortgage and financial services — domains where a wrong answer isn't a bug, it's a compliance event. This is a working record of the systems built, the overhead removed, and the teams that shipped it.</p>
+    <div class="hero-meta">
+      <div class="identity">Omar BinAlshaikh<span class="role">Principal Product Manager</span></div>
+      <div class="contact">
+        oabinalshaikh@gmail.com<br>
+        +1 734.507.1460<br>
+        linkedin.com/in/omarbinalshaikh
+      </div>
+    </div>
+  </div>
+
+  <div class="ledger">
+    <div class="ledger-item"><span class="ledger-num">15→5</span><span class="ledger-label">Days to Close, Post-Reform</span></div>
+    <div class="ledger-item"><span class="ledger-num">$3.3M+</span><span class="ledger-label">Combined Annual Overhead Removed</span></div>
+    <div class="ledger-item"><span class="ledger-num">100K+</span><span class="ledger-label">Transactions Automated / Month</span></div>
+    <div class="ledger-item"><span class="ledger-num">8–20</span><span class="ledger-label">Product &amp; Delivery Professionals Led</span></div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <h2 class="sec-title">Skillset</h2>
+      <span class="sec-note">04 domains</span>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>Product &amp; Strategy</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">0-to-1 Product Development</span>
+          <span class="skill-tag">Roadmapping</span>
+          <span class="skill-tag">Requirements &amp; PRDs</span>
+          <span class="skill-tag">Stakeholder Negotiation</span>
+          <span class="skill-tag">GTM &amp; Positioning</span>
+          <span class="skill-tag">A/B Testing</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>AI / ML &amp; Technical</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">LLM Product Development</span>
+          <span class="skill-tag">Model Deployment &amp; Evaluation</span>
+          <span class="skill-tag">Human-in-the-Loop Systems</span>
+          <span class="skill-tag">Classification &amp; Extraction</span>
+          <span class="skill-tag">API Product Management</span>
+          <span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Delivery &amp; Leadership</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Agile / Scrum / Lean</span>
+          <span class="skill-tag">SAFe</span>
+          <span class="skill-tag">Team Leadership (8–20+)</span>
+          <span class="skill-tag">Cross-Functional Delivery</span>
+          <span class="skill-tag">Vendor &amp; Partner Negotiation</span>
+          <span class="skill-tag">Risk &amp; Trust Systems</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Miro</span>
+          <span class="skill-tag">AWS (S3, DynamoDB, SQS)</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">AI Prototyping Tools</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2 class="sec-title">Case Files</h2>
+      <span class="sec-note">06 initiatives</span>
+    </div>
+    <div class="case-grid">
+
+      <div class="case">
+        <div class="stamp">15d → 5d</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 001</span><h3>Loan Origination Reform</h3></div>
+        </div>
+        <p>Redesigned the loan origination workflow end-to-end — AI-enhanced intake, automated income and document validation, and a rules engine that automates the underwriting decision. Cut closing time from 15+ days to 5.</p>
+        <div class="case-tags"><span>Process Redesign</span><span>Post-Closing</span><span>Cross-Functional</span></div>
+        <a class="case-link" href="case-origination-reform.html">View full case study →</a>
+      </div>
+
+      <div class="case">
+        <div class="stamp">$3M / yr</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 002</span><h3>Audit Automation</h3></div>
+        </div>
+        <p>Replaced a fully manual audit review process with an AI-driven automation layer, saving roughly $3M in annual overhead while improving consistency and traceability for compliance review.</p>
+        <div class="case-tags"><span>AI Automation</span><span>Compliance</span><span>Cost Reduction</span></div>
+      </div>
+
+      <div class="case">
+        <div class="stamp">$300K / yr</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 003</span><h3>Loan Recording Automation</h3></div>
+        </div>
+        <p>Built an API-based automation solution for loan recording, eliminating manual data entry and reconciliation steps and saving approximately $300K in annual overhead.</p>
+        <div class="case-tags"><span>API Solution</span><span>Automation</span></div>
+      </div>
+
+      <div class="case">
+        <div class="stamp">B2B · AI/ML</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 004</span><h3>Data Validation Platform</h3></div>
+        </div>
+        <p>Owned a B2B AI/ML data validation product combining classification, extraction, rules-based logic, and human-in-the-loop review — a core building block for partner-facing data quality.</p>
+        <div class="case-tags"><span>Classification</span><span>Extraction</span><span>Human-in-the-Loop</span><span>API</span></div>
+        <a class="case-link" href="case-data-validation.html">View full case study →</a>
+      </div>
+
+      <div class="case">
+        <div class="stamp">Partner-Ready</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 005</span><h3>B2B Integrations</h3></div>
+        </div>
+        <p>Directed integration efforts with external partner organizations, aligning API contracts, data schemas, and SLAs to bring third-party systems onto the platform reliably.</p>
+        <div class="case-tags"><span>API Contracts</span><span>Partner Enablement</span></div>
+      </div>
+
+      <div class="case">
+        <div class="stamp">On-Prem → Cloud</div>
+        <div class="case-top">
+          <div><span class="case-no">No. 006</span><h3>Infrastructure Migration</h3></div>
+        </div>
+        <p>Led the migration of core data infrastructure from on-premises systems to the cloud, improving scalability and reducing operational overhead across the platform.</p>
+        <div class="case-tags"><span>Cloud Migration</span><span>Infrastructure</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2 class="sec-title">Practice</h2>
+      <span class="sec-note">How the work gets led</span>
+    </div>
+    <div class="practice-list">
+      <div class="practice-item">
+        <span class="practice-mark">No. 007</span>
+        <div>
+          <h4>Department Reform</h4>
+          <p>Led Scrum, Agile, and Lean transformation initiatives across the department, setting delivery standards for both Scrum Masters and product professionals.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <span class="practice-mark">No. 008</span>
+        <div>
+          <h4>Product Leadership</h4>
+          <p>Led teams of 8–12 product professionals, owning roadmap, prioritization, and execution across multiple concurrent workstreams.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <span class="practice-mark">No. 009</span>
+        <div>
+          <h4>Negotiations to Delivery</h4>
+          <p>Represented the organization end-to-end — from initial stakeholder and vendor negotiations through final delivery — owning outcomes at every stage, not just the roadmap.</p>
+        </div>
+      </div>
+      <div class="practice-item">
+        <span class="practice-mark">No. 010</span>
+        <div>
+          <h4>Solution Design &amp; Demonstration</h4>
+          <p>Designed and demoed working solutions using AI prototyping tools, Figma, and Miro — bringing concepts to a tangible, testable state before committing engineering resources.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2 class="sec-title">Credentials</h2>
+    </div>
+    <div class="grid-two">
+      <div>
+        <div class="ed-item">
+          <div class="ed-degree">Master's, Management</div>
+          <div class="ed-school">Harvard University, Cambridge, MA</div>
+        </div>
+        <div class="ed-item">
+          <div class="ed-degree">BBA, Finance</div>
+          <div class="ed-school">Eastern Michigan University, Ypsilanti, MI</div>
+        </div>
+        <div class="skill-tags" style="margin-top:14px;">
+          <span class="skill-tag">English — Native</span>
+          <span class="skill-tag">Arabic — Native</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-tags">
+          <span class="skill-tag">SAFe PM/PO</span>
+          <span class="skill-tag">CSPO</span>
+          <span class="skill-tag">Six Sigma Green Belt</span>
+          <span class="skill-tag">Advanced Negotiations — Harvard</span>
+          <span class="skill-tag">Org Behavior &amp; Change Mgmt — Harvard</span>
+          <span class="skill-tag">Grad. Certificate, Strategic Mgmt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Omar BinAlshaikh — Portfolio</span>
+    <span>Updated August 2026</span>
+  </footer>
+
+</div>
+
+<script>
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href).then(()=>{
+    const t=document.getElementById('copyToast');
+    t.style.opacity=1;
+    setTimeout(()=>t.style.opacity=0,1800);
+  }).catch(()=>{
+    const t=document.getElementById('copyToast');
+    t.textContent='Copy not available here';
+    t.style.opacity=1;
+    setTimeout(()=>t.style.opacity=0,1800);
+  });
+}
+</script>
+
+</body>
+</html>

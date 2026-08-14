@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case No. 001 — Loan Origination Reform | Omar BinAlshaikh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7; --ink:#1A2332; --line:#C8CDD6; --accent:#8B1E3F;
+    --muted:#5B6472; --ledger:#2D5F4C; --gold:#9C7A2E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E7E0;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  .page{max-width:940px;margin:40px auto;background:var(--paper);box-shadow:0 4px 24px rgba(26,35,50,0.12),0 1px 3px rgba(26,35,50,0.08);}
+
+  .toolbar{max-width:940px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 4px 12px;}
+  .backlink{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
+  .backlink:hover{color:var(--accent);border-color:var(--accent);}
+  .toolbar-actions{display:flex;gap:10px;}
+  .toolbar button{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:500;letter-spacing:.03em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:9px 16px;cursor:pointer;}
+  .toolbar button:hover{background:var(--accent);}
+
+  .hero{padding:56px 76px 36px;border-bottom:2.5px solid var(--ink);}
+  .case-no{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.08em;font-weight:600;}
+  .hero h1{font-family:'Newsreader',serif;font-weight:600;font-size:38px;line-height:1.12;margin:12px 0 16px;max-width:14em;}
+  .hero-sub{font-size:16px;line-height:1.65;color:#2b3547;max-width:38em;margin:0;}
+
+  .stamp-hero{
+    display:inline-block;margin-top:22px;border:2px solid var(--accent);color:var(--accent);
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.04em;
+    padding:8px 16px;transform:rotate(-1.5deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+
+  .meta-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
+  .meta-item{padding:18px 24px;border-right:1px solid var(--line);}
+  .meta-item:first-child{padding-left:76px;}
+  .meta-item:last-child{border-right:none;padding-right:76px;}
+  .meta-label{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+  .meta-val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);}
+
+  section{padding:44px 76px;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-title{font-family:'Newsreader',serif;font-size:22px;font-weight:600;margin:0 0 20px;display:flex;align-items:baseline;gap:12px;}
+  .sec-title::after{content:"";flex:1;border-top:1px solid var(--line);}
+  p.body{font-size:14.5px;line-height:1.75;color:#2b3547;margin:0 0 14px;}
+  p.body:last-child{margin-bottom:0;}
+
+  /* ---- timeline diagram ---- */
+  .timeline-block{margin-bottom:36px;}
+  .timeline-block:last-child{margin-bottom:0;}
+  .timeline-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .timeline-label .tl-name{font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+  .timeline-label .tl-total{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;}
+  .tl-old .tl-total{color:var(--accent);}
+  .tl-new .tl-total{color:var(--ledger);}
+  .timeline-bar{display:flex;height:44px;border:1px solid var(--ink);overflow:hidden;}
+  .segment{display:flex;align-items:center;justify-content:center;border-right:1px solid rgba(255,255,255,0.35);position:relative;}
+  .segment:last-child{border-right:none;}
+  .segment span{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#fff;text-align:center;padding:0 4px;line-height:1.3;}
+  .tl-old .segment{background:#B4384F;}
+  .tl-old .segment:nth-child(odd){background:#8B1E3F;}
+  .tl-new .segment{background:#3E7D66;}
+  .tl-new .segment:nth-child(odd){background:#2D5F4C;}
+  .tl-caption{font-size:10.5px;color:var(--muted);margin-top:8px;font-family:'IBM Plex Mono',monospace;}
+
+  /* ---- callouts ---- */
+  .callout{border-left:2px solid var(--gold);padding:4px 0 4px 20px;margin:20px 0;}
+  .callout h4{font-family:'Newsreader',serif;font-size:14.5px;font-weight:600;margin:0 0 6px;color:var(--ink);}
+  .callout p{font-size:13.5px;line-height:1.65;color:#2b3547;margin:0;}
+
+  .friction-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px;}
+  .friction-card{border:1px solid var(--line);background:#fff;padding:20px 22px;}
+  .friction-card h4{font-family:'Newsreader',serif;font-size:15px;font-weight:600;margin:0 0 8px;color:var(--accent);}
+  .friction-card p{font-size:13.5px;line-height:1.6;color:#2b3547;margin:0;}
+
+  .outcome-ledger{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+  .outcome-item{padding:18px 20px;border-right:1px solid var(--line);text-align:center;}
+  .outcome-item:last-child{border-right:none;}
+  .outcome-num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--ledger);display:block;}
+  .outcome-label{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px;}
+
+  /* ---- mockup frame ---- */
+  .illus-tag{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 9px;margin-bottom:16px;}
+  .illus-tag::before{content:"◆";font-size:7px;}
+  .mockup-wrap{margin:0 0 36px;}
+  .mockup-wrap:last-child{margin-bottom:0;}
+  .mockup-frame{border:1px solid var(--ink);background:#fff;}
+  .mockup-bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#F0EEE7;}
+  .mdot{width:7px;height:7px;border-radius:50%;background:var(--line);display:inline-block;}
+  .mockup-url{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-left:10px;}
+  .mockup-body{padding:20px;}
+  .mockup-title{font-family:'Newsreader',serif;font-size:15px;font-weight:600;margin:0 0 14px;}
+
+  .board{display:grid;grid-template-columns:1fr 2fr 1fr;gap:14px;}
+  .board-col{border:1px solid var(--line);background:#FAFAF7;}
+  .board-col-head{padding:8px 10px;border-bottom:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:flex;justify-content:space-between;}
+  .board-col-head .count{color:var(--ink);}
+  .board-subcols{display:grid;grid-template-columns:1fr 1fr;}
+  .board-sub{border-right:1px solid var(--line);}
+  .board-sub:last-child{border-right:none;}
+  .board-sub-head{padding:6px 10px;font-size:9px;font-family:'IBM Plex Mono',monospace;color:var(--accent);border-bottom:1px dashed var(--line);text-transform:uppercase;letter-spacing:.03em;}
+  .loan-card{margin:8px;padding:9px 10px;border:1px solid var(--line);background:#fff;font-size:10.5px;}
+  .loan-card .lid{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink);}
+  .loan-card .lmeta{color:var(--muted);font-size:9.5px;margin-top:3px;}
+  .pill{display:inline-block;font-size:8.5px;font-family:'IBM Plex Mono',monospace;padding:2px 6px;margin-top:6px;border:1px solid;}
+  .pill.ok{color:var(--ledger);border-color:var(--ledger);}
+  .pill.risk{color:var(--accent);border-color:var(--accent);}
+
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;}
+  .stat-box{border:1px solid var(--line);padding:12px 14px;}
+  .stat-box .sval{font-family:'IBM Plex Mono',monospace;font-size:21px;font-weight:600;color:var(--ledger);}
+  .stat-box .slabel{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:4px;}
+  .chart{display:flex;align-items:flex-end;gap:10px;height:90px;border-bottom:1px solid var(--line);padding-top:18px;}
+  .chart-bar{flex:1;background:var(--ledger);position:relative;}
+  .chart-bar span{position:absolute;top:-18px;left:0;right:0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--muted);}
+  .chart-labels{display:flex;gap:10px;margin-top:6px;}
+  .chart-labels span{flex:1;text-align:center;font-size:8.5px;font-family:'IBM Plex Mono',monospace;color:var(--muted);}
+
+  .nav-footer{display:flex;justify-content:space-between;padding:30px 76px;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .nav-footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
+  .nav-footer a:hover{color:var(--accent);border-color:var(--accent);}
+
+  @media print{
+    @page{margin:12mm 14mm;}
+    html,body{background:#fff;}
+    .toolbar{display:none;}
+    .page{box-shadow:none;margin:0;max-width:none;}
+    .hero,.meta-item:first-child,.meta-item:last-child,section,.nav-footer{padding-left:0;padding-right:0;}
+    .stamp-hero,.outcome-num,.case-no{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+  @media (max-width:720px){
+    .page{margin:0;box-shadow:none;}
+    .hero,section,.nav-footer{padding:32px 22px;}
+    .meta-strip{grid-template-columns:1fr 1fr;}
+    .meta-item,.meta-item:first-child,.meta-item:last-child{padding:14px 18px;}
+    .friction-grid,.outcome-ledger{grid-template-columns:1fr;}
+    .outcome-item{border-right:none;border-bottom:1px solid var(--line);}
+    .segment span{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a class="backlink" href="omar-binalshaikh-portfolio.html">← Back to Portfolio</a>
+  <div class="toolbar-actions">
+    <button onclick="window.print()">Print / Save PDF</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <span class="case-no">Case No. 001 — Product &amp; Process Reform</span>
+    <h1>Loan Origination Reform</h1>
+    <p class="hero-sub">Rebuilding a legacy, sequential closing process into a parallelized, cloud-based, configurable system — cutting time-to-close from 15+ days to 5 without weakening compliance.</p>
+    <span class="stamp-hero">15+ Days → 5 Days</span>
+  </div>
+
+  <div class="meta-strip">
+    <div class="meta-item"><span class="meta-label">Engineering</span><span class="meta-val">20</span></div>
+    <div class="meta-item"><span class="meta-label">Product</span><span class="meta-val">4</span></div>
+    <div class="meta-item"><span class="meta-label">QA</span><span class="meta-val">4</span></div>
+    <div class="meta-item"><span class="meta-label">Domain</span><span class="meta-val">Loan Origination</span></div>
+  </div>
+
+  <section>
+    <h3 class="sec-title">The Problem</h3>
+    <p class="body">The origination process ran on legacy, on-premises technology that forced every application through the same rigid, fully manual path: intake, processing, document and income verification, underwriting, and closing, each stage waiting on the one before it regardless of how complete or straightforward the application already was.</p>
+    <p class="body">Every application, however clean, was processed as if it needed the full manual treatment. There was no way to route a simple, complete file faster than a complex one, and no automation in the underwriting decision itself — every file waited on a human underwriter's manual review before it could move forward. The result was a closing timeline that regularly stretched past 15 days.</p>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Before &amp; After</h3>
+    <div class="timeline-block tl-old">
+      <div class="timeline-label"><span class="tl-name">Legacy Process</span><span class="tl-total">15+ days</span></div>
+      <div class="timeline-bar">
+        <div class="segment" style="flex:2;"><span>Manual<br>Intake</span></div>
+        <div class="segment" style="flex:3;"><span>Processing<br>(Always Required)</span></div>
+        <div class="segment" style="flex:3;"><span>Document &amp;<br>Income Verification</span></div>
+        <div class="segment" style="flex:4;"><span>Underwriting<br>(Manual Decision)</span></div>
+        <div class="segment" style="flex:2;"><span>Closing</span></div>
+      </div>
+      <p class="tl-caption">Every application takes the full manual path, regardless of complexity</p>
+    </div>
+    <div class="timeline-block tl-new">
+      <div class="timeline-label"><span class="tl-name">Reformed Process</span><span class="tl-total">5 days</span></div>
+      <div class="timeline-bar">
+        <div class="segment" style="flex:2;"><span>AI-Enhanced<br>Intake</span></div>
+        <div class="segment" style="flex:1;"><span>Processing<br>(If Needed)</span></div>
+        <div class="segment" style="flex:2;"><span>Doc. &amp; Income<br>Validation</span></div>
+        <div class="segment" style="flex:2;"><span>Qualification &amp;<br>Underwriting</span></div>
+        <div class="segment" style="flex:2;"><span>Closing</span></div>
+      </div>
+      <p class="tl-caption">Intake → Processing (if needed) → Document &amp; Income Validation → Qualification &amp; Underwriting (Rules Engine) → Closing</p>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">The Approach</h3>
+    <p class="body">The reform ran on several tracks at once, because fixing only the process without fixing the underlying decisioning and infrastructure would have capped how far the timeline could actually move:</p>
+    <div class="callout">
+      <h4>AI-Enhanced Intake</h4>
+      <p>Intake was enhanced, not automated. AI analyzes the borrower conversation and pre-fills the application from it, so the applicant isn't re-entering information they've already provided. A human still owns the intake step — the AI reduces the manual burden inside it rather than replacing it.</p>
+    </div>
+    <div class="callout">
+      <h4>Conditional Processing</h4>
+      <p>Processing was rebuilt as a conditional step rather than a default one. It now runs only when the AI-enhanced intake leaves gaps to fill, instead of treating every application as if it needs the same manual handling.</p>
+    </div>
+    <div class="callout">
+      <h4>Automated Income &amp; Document Validation</h4>
+      <p>Income review, previously a fully manual step, was automated — extracting and validating income data directly from submitted documents rather than requiring a person to check it line by line.</p>
+    </div>
+    <div class="callout">
+      <h4>Rules-Engine Underwriting</h4>
+      <p>Built a rules engine that automates the underwriting decision at the qualification stage, applying the same lending and compliance criteria a human underwriter would, consistently and immediately, with manual review reserved for the applications the rules engine can't confidently clear.</p>
+    </div>
+    <div class="callout">
+      <h4>Cloud Migration &amp; Configurability</h4>
+      <p>Moved the underlying systems off legacy on-premises infrastructure to the cloud, and rebuilt process and rules logic as configuration rather than hard-coded application logic — cutting the team's dependency on engineering for day-to-day process and rule changes.</p>
+    </div>
+    <div class="callout">
+      <h4>Compliance Review &amp; Enhancement</h4>
+      <p>Compliance requirements were re-reviewed and built into the rules engine directly, with a full audit trail on every automated decision, so the faster process didn't come at the cost of audit coverage.</p>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Navigating the Friction</h3>
+    <p class="body">Two forms of resistance shaped how the rollout actually happened, and both had to be worked through rather than overridden:</p>
+    <div class="friction-grid">
+      <div class="friction-card">
+        <h4>Compliance Sign-Off</h4>
+        <p>Handing the underwriting decision to a rules engine meant compliance needed confidence that the automated logic applied lending and regulatory criteria correctly and consistently — and that every decision left a clear, auditable trail. That confidence had to be earned through review and validation before sign-off, not assumed.</p>
+      </div>
+      <div class="friction-card">
+        <h4>Team Control</h4>
+        <p>Underwriters and processors who had manually owned the qualification decision and the income review step were being asked to hand that judgment to automation. Getting buy-in meant involving them in defining the rules engine's logic and thresholds, so the system reflected their expertise rather than replacing it unilaterally.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Interface</h3>
+    <p class="body">Interface mockups below are illustrative reconstructions built to represent how the workflow functioned — not screenshots of the actual product, which remains confidential.</p>
+
+    <div class="mockup-wrap">
+      <span class="illus-tag">Illustrative Reconstruction — Not Actual Product UI</span>
+      <div class="mockup-frame">
+        <div class="mockup-bar"><span class="mdot"></span><span class="mdot"></span><span class="mdot"></span><span class="mockup-url">app.internal / origination / pipeline</span></div>
+        <div class="mockup-body">
+          <p class="mockup-title">Origination Pipeline Board</p>
+          <div class="board" style="grid-template-columns:repeat(5,1fr);">
+            <div class="board-col">
+              <div class="board-col-head">Intake <span class="count">22</span></div>
+              <div class="loan-card"><span class="lid">LN-88231</span><div class="lmeta">Day 1</div><span class="pill ok">On Track</span></div>
+              <div class="loan-card"><span class="lid">LN-88240</span><div class="lmeta">Day 1</div><span class="pill ok">On Track</span></div>
+            </div>
+            <div class="board-col">
+              <div class="board-col-head">Processing <span class="count">9</span></div>
+              <div class="loan-card"><span class="lid">LN-88198</span><div class="lmeta">Gaps: 2</div><span class="pill risk">Needs Info</span></div>
+            </div>
+            <div class="board-col">
+              <div class="board-col-head">Doc &amp; Income <span class="count">31</span></div>
+              <div class="loan-card"><span class="lid">LN-88175</span><div class="lmeta">Day 2</div><span class="pill ok">On Track</span></div>
+              <div class="loan-card"><span class="lid">LN-88188</span><div class="lmeta">Day 3</div><span class="pill risk">At Risk</span></div>
+            </div>
+            <div class="board-col">
+              <div class="board-col-head">Qualification <span class="count">18</span></div>
+              <div class="loan-card"><span class="lid">LN-88190</span><div class="lmeta">Rules Engine: Cleared</div><span class="pill ok">On Track</span></div>
+              <div class="loan-card"><span class="lid">LN-88201</span><div class="lmeta">Manual Review</div><span class="pill risk">At Risk</span></div>
+            </div>
+            <div class="board-col">
+              <div class="board-col-head">Closing <span class="count">12</span></div>
+              <div class="loan-card"><span class="lid">LN-88110</span><div class="lmeta">Day 4</div><span class="pill ok">On Track</span></div>
+              <div class="loan-card"><span class="lid">LN-88095</span><div class="lmeta">Day 5</div><span class="pill ok">On Track</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-wrap">
+      <span class="illus-tag">Illustrative Reconstruction — Not Actual Product UI</span>
+      <div class="mockup-frame">
+        <div class="mockup-bar"><span class="mdot"></span><span class="mdot"></span><span class="mdot"></span><span class="mockup-url">app.internal / origination / ops-dashboard</span></div>
+        <div class="mockup-body">
+          <p class="mockup-title">Ops Dashboard — Time to Close</p>
+          <div class="stat-row">
+            <div class="stat-box"><span class="sval">5.2d</span><span class="slabel">Avg Days to Close</span></div>
+            <div class="stat-box"><span class="sval">142</span><span class="slabel">Loans In Progress</span></div>
+            <div class="stat-box"><span class="sval">96%</span><span class="slabel">SLA Compliance</span></div>
+          </div>
+          <div class="chart">
+            <div class="chart-bar" style="height:100%;"><span>15.4d</span></div>
+            <div class="chart-bar" style="height:85%;"><span>13.1d</span></div>
+            <div class="chart-bar" style="height:69%;"><span>10.6d</span></div>
+            <div class="chart-bar" style="height:53%;"><span>8.2d</span></div>
+            <div class="chart-bar" style="height:42%;"><span>6.4d</span></div>
+            <div class="chart-bar" style="height:34%;"><span>5.2d</span></div>
+          </div>
+          <div class="chart-labels"><span>Baseline</span><span>Phase 1</span><span>Phase 2</span><span>Phase 3</span><span>Phase 4</span><span>Current</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Outcome</h3>
+    <div class="outcome-ledger">
+      <div class="outcome-item"><span class="outcome-num">67%</span><span class="outcome-label">Faster Time-to-Close</span></div>
+      <div class="outcome-item"><span class="outcome-num">28</span><span class="outcome-label">Core Team, Delivered</span></div>
+      <div class="outcome-item"><span class="outcome-num">0</span><span class="outcome-label">Compliance Coverage Lost</span></div>
+    </div>
+    <p class="body" style="margin-top:20px;">Closing time dropped from 15+ days to 5 — a change that compounded across a high-volume loan pipeline. Beyond the headline number, the configurability work reduced ongoing dependency on engineering for process changes, and the compliance rework meant the faster process shipped with equal, not reduced, audit coverage.</p>
+  </section>
+
+  <div class="nav-footer">
+    <a href="omar-binalshaikh-portfolio.html">← Back to Portfolio</a>
+    <a href="case-data-validation.html">Next Case File: Data Validation Platform →</a>
+  </div>
+
+</div>
+</body>
+</html>

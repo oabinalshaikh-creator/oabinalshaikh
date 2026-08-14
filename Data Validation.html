@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case No. 004 — Data Validation Platform | Omar BinAlshaikh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAFAF7; --ink:#1A2332; --line:#C8CDD6; --accent:#8B1E3F;
+    --muted:#5B6472; --ledger:#2D5F4C; --gold:#9C7A2E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E7E0;color:var(--ink);font-family:'IBM Plex Sans',sans-serif;}
+  .page{max-width:940px;margin:40px auto;background:var(--paper);box-shadow:0 4px 24px rgba(26,35,50,0.12),0 1px 3px rgba(26,35,50,0.08);}
+
+  .toolbar{max-width:940px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 4px 12px;}
+  .backlink{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
+  .backlink:hover{color:var(--accent);border-color:var(--accent);}
+  .toolbar-actions{display:flex;gap:10px;}
+  .toolbar button{font-family:'IBM Plex Sans',sans-serif;font-size:12.5px;font-weight:500;letter-spacing:.03em;text-transform:uppercase;background:var(--ink);color:var(--paper);border:none;padding:9px 16px;cursor:pointer;}
+  .toolbar button:hover{background:var(--accent);}
+
+  .hero{padding:56px 76px 36px;border-bottom:2.5px solid var(--ink);}
+  .case-no{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.08em;font-weight:600;}
+  .hero h1{font-family:'Newsreader',serif;font-weight:600;font-size:38px;line-height:1.12;margin:12px 0 16px;max-width:14em;}
+  .hero-sub{font-size:16px;line-height:1.65;color:#2b3547;max-width:38em;margin:0;}
+
+  .stamp-hero{
+    display:inline-block;margin-top:22px;border:2px solid var(--accent);color:var(--accent);
+    font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;letter-spacing:.04em;
+    padding:8px 16px;transform:rotate(-1.5deg);-webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+
+  .meta-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);}
+  .meta-item{padding:18px 24px;border-right:1px solid var(--line);}
+  .meta-item:first-child{padding-left:76px;}
+  .meta-item:last-child{border-right:none;padding-right:76px;}
+  .meta-label{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;}
+  .meta-val{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--ink);}
+
+  section{padding:44px 76px;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .sec-title{font-family:'Newsreader',serif;font-size:22px;font-weight:600;margin:0 0 20px;display:flex;align-items:baseline;gap:12px;}
+  .sec-title::after{content:"";flex:1;border-top:1px solid var(--line);}
+  p.body{font-size:14.5px;line-height:1.75;color:#2b3547;margin:0 0 14px;}
+  p.body:last-child{margin-bottom:0;}
+
+  /* ---- pipeline diagram ---- */
+  .pipeline{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;}
+  .pipe-step{
+    flex:1 1 150px;border:1px solid var(--ink);background:#fff;padding:16px 14px;
+    display:flex;flex-direction:column;gap:6px;position:relative;min-width:130px;
+  }
+  .pipe-step .pn{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);font-weight:600;}
+  .pipe-step h5{font-family:'Newsreader',serif;font-size:14.5px;font-weight:600;margin:0;line-height:1.25;}
+  .pipe-step p{font-size:11px;line-height:1.5;color:var(--muted);margin:0;}
+  .pipe-arrow{
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;color:var(--muted);font-size:16px;
+    flex:0 0 30px;
+  }
+  .pipe-step.hitl{background:#FBF3F5;border-color:var(--accent);}
+  .pipe-step.hitl .pn{color:var(--accent);}
+  .pipe-caption{font-size:10.5px;color:var(--muted);margin-top:14px;font-family:'IBM Plex Mono',monospace;}
+
+  /* ---- challenge grid ---- */
+  .challenge-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+  .challenge-card{border-left:2px solid var(--gold);padding:2px 0 2px 18px;}
+  .challenge-card h4{font-family:'Newsreader',serif;font-size:15px;font-weight:600;margin:0 0 6px;}
+  .challenge-card p{font-size:13.5px;line-height:1.62;color:#2b3547;margin:0;}
+
+  .outcome-ledger{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);}
+  .outcome-item{padding:18px 16px;border-right:1px solid var(--line);text-align:center;}
+  .outcome-item:last-child{border-right:none;}
+  .outcome-num{font-family:'IBM Plex Mono',monospace;font-size:21px;font-weight:600;color:var(--ledger);display:block;}
+  .outcome-label{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px;line-height:1.4;}
+
+  .biz-note{background:#fff;border:1px solid var(--line);padding:20px 22px;margin-top:8px;}
+  .biz-note h4{font-family:'Newsreader',serif;font-size:15px;font-weight:600;margin:0 0 8px;color:var(--accent);}
+  .biz-note p{font-size:13.5px;line-height:1.6;color:#2b3547;margin:0;}
+
+  /* ---- mockup frame ---- */
+  .illus-tag{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 9px;margin-bottom:16px;}
+  .illus-tag::before{content:"◆";font-size:7px;}
+  .mockup-wrap{margin:0 0 36px;}
+  .mockup-wrap:last-child{margin-bottom:0;}
+  .mockup-frame{border:1px solid var(--ink);background:#fff;}
+  .mockup-bar{display:flex;align-items:center;gap:6px;padding:9px 14px;border-bottom:1px solid var(--line);background:#F0EEE7;}
+  .mdot{width:7px;height:7px;border-radius:50%;background:var(--line);display:inline-block;}
+  .mockup-url{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);margin-left:10px;}
+  .mockup-body{padding:20px;overflow-x:auto;}
+  .mockup-title{font-family:'Newsreader',serif;font-size:15px;font-weight:600;margin:0 0 14px;}
+
+  .mtable{width:100%;border-collapse:collapse;font-size:11.5px;min-width:520px;}
+  .mtable th{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--ink);}
+  .mtable td{padding:9px 10px;border-bottom:1px solid var(--line);}
+  .mtable td.mono{font-family:'IBM Plex Mono',monospace;}
+  .status-pill{font-size:9.5px;font-family:'IBM Plex Mono',monospace;padding:3px 8px;border:1px solid;display:inline-block;white-space:nowrap;}
+  .status-pill.approved{color:var(--ledger);border-color:var(--ledger);}
+  .status-pill.review{color:var(--accent);border-color:var(--accent);}
+  .status-pill.pass{color:var(--ledger);border-color:var(--ledger);}
+  .status-pill.flag{color:var(--gold);border-color:var(--gold);}
+  .conf-wrap{display:flex;align-items:center;gap:8px;}
+  .conf-bar{width:56px;height:6px;background:var(--line);position:relative;flex-shrink:0;}
+  .conf-fill{height:100%;background:var(--ledger);}
+  .conf-fill.low{background:var(--accent);}
+
+  .nav-footer{display:flex;justify-content:space-between;padding:30px 76px;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .nav-footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
+  .nav-footer a:hover{color:var(--accent);border-color:var(--accent);}
+
+  @media print{
+    @page{margin:12mm 14mm;}
+    html,body{background:#fff;}
+    .toolbar{display:none;}
+    .page{box-shadow:none;margin:0;max-width:none;}
+    .hero,.meta-item:first-child,.meta-item:last-child,section,.nav-footer{padding-left:0;padding-right:0;}
+    .stamp-hero,.outcome-num,.case-no{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .pipeline{flex-wrap:nowrap;}
+  }
+  @media (max-width:760px){
+    .page{margin:0;box-shadow:none;}
+    .hero,section,.nav-footer{padding:32px 22px;}
+    .meta-strip{grid-template-columns:1fr 1fr;}
+    .meta-item,.meta-item:first-child,.meta-item:last-child{padding:14px 18px;}
+    .challenge-grid,.outcome-ledger{grid-template-columns:1fr;}
+    .outcome-item{border-right:none;border-bottom:1px solid var(--line);}
+    .pipeline{flex-direction:column;}
+    .pipe-arrow{transform:rotate(90deg);flex:0 0 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a class="backlink" href="omar-binalshaikh-portfolio.html">← Back to Portfolio</a>
+  <div class="toolbar-actions">
+    <button onclick="window.print()">Print / Save PDF</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="hero">
+    <span class="case-no">Case No. 004 — B2B AI/ML Product</span>
+    <h1>Data Validation Platform</h1>
+    <p class="hero-sub">A B2B AI/ML product sold to other lenders — validating loan documents and borrower data at scale through classification, extraction, rules, and human-in-the-loop review.</p>
+    <span class="stamp-hero">92% Accuracy · Millions of Documents / Month</span>
+  </div>
+
+  <div class="meta-strip">
+    <div class="meta-item"><span class="meta-label">Model</span><span class="meta-val">B2B / Sold Externally</span></div>
+    <div class="meta-item"><span class="meta-label">Volume</span><span class="meta-val">100Ks Loans / Mo</span></div>
+    <div class="meta-item"><span class="meta-label">Documents</span><span class="meta-val">Millions / Mo</span></div>
+    <div class="meta-item"><span class="meta-label">Interface</span><span class="meta-val">API</span></div>
+  </div>
+
+  <section>
+    <h3 class="sec-title">The Problem</h3>
+    <p class="body">Lending partners needed to trust the loan documents and borrower data flowing through their pipelines, but validating that data manually didn't scale — not at the volume of loan documents moving through the industry, and not at the accuracy bar compliance required. Document quality varied widely by source, formats were inconsistent, and any validation product sold externally had to meet another company's compliance standard, not just an internal one.</p>
+    <p class="body">This wasn't an internal tool — it was a product built to be sold to other lending companies, which raised the bar on reliability, auditability, and consistency beyond what an in-house-only system would need.</p>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Pipeline Architecture</h3>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <span class="pn">01</span>
+        <h5>Document Intake</h5>
+        <p>Loan documents &amp; borrower data ingested via API from partner systems.</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="pn">02</span>
+        <h5>Classification</h5>
+        <p>Documents sorted by type against the expected loan document set.</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="pn">03</span>
+        <h5>Extraction</h5>
+        <p>Structured data pulled from unstructured and semi-structured documents.</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="pn">04</span>
+        <h5>Rules Engine</h5>
+        <p>Extracted data validated against compliance and business rules.</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step hitl">
+        <span class="pn">05</span>
+        <h5>Human-in-the-Loop</h5>
+        <p>Low-confidence or flagged cases routed to human review as needed.</p>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-step">
+        <span class="pn">06</span>
+        <h5>Validated Output</h5>
+        <p>Clean, validated data returned to the partner via API.</p>
+      </div>
+    </div>
+    <p class="pipe-caption">Human review is conditional — triggered by confidence scoring, not applied to every case</p>
+  </section>
+
+  <section>
+    <h3 class="sec-title">What Made It Hard</h3>
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <h4>Data Quality</h4>
+        <p>Incoming documents varied widely in format, scan quality, and structure across partners, which meant the classification and extraction models had to hold up against real-world mess, not clean sample data.</p>
+      </div>
+      <div class="challenge-card">
+        <h4>Accuracy Requirements</h4>
+        <p>Because the output fed directly into partners' own loan decisions, the accuracy bar was set by compliance risk, not convenience — every extraction had to be trustworthy enough to reduce, not just relocate, manual review.</p>
+      </div>
+      <div class="challenge-card">
+        <h4>Scale</h4>
+        <p>Processing millions of documents across hundreds of thousands of loans a month meant the pipeline had to hold its accuracy and latency under real production volume, not just in testing.</p>
+      </div>
+      <div class="challenge-card">
+        <h4>Compliance</h4>
+        <p>As an externally sold product, the validation logic and audit trail had to satisfy each partner's own compliance function, not just internal standards — raising the bar on traceability throughout the pipeline.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Interface</h3>
+    <p class="body">Interface mockups below are illustrative reconstructions built to represent how the product functioned — not screenshots of the actual product, which remains confidential and was sold commercially to partner companies.</p>
+
+    <div class="mockup-wrap">
+      <span class="illus-tag">Illustrative Reconstruction — Not Actual Product UI</span>
+      <div class="mockup-frame">
+        <div class="mockup-bar"><span class="mdot"></span><span class="mdot"></span><span class="mdot"></span><span class="mockup-url">app.internal / validation / review-queue</span></div>
+        <div class="mockup-body">
+          <p class="mockup-title">Confidence-Scoring Review Queue</p>
+          <table class="mtable">
+            <thead><tr><th>Document ID</th><th>Type</th><th>Confidence</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">DOC-44921</td><td>Pay Stub</td><td><div class="conf-wrap"><div class="conf-bar"><div class="conf-fill" style="width:97%;"></div></div>97%</div></td><td><span class="status-pill approved">Auto-Approved</span></td></tr>
+              <tr><td class="mono">DOC-44922</td><td>W-2</td><td><div class="conf-wrap"><div class="conf-bar"><div class="conf-fill" style="width:94%;"></div></div>94%</div></td><td><span class="status-pill approved">Auto-Approved</span></td></tr>
+              <tr><td class="mono">DOC-44923</td><td>Bank Statement</td><td><div class="conf-wrap"><div class="conf-bar"><div class="conf-fill low" style="width:62%;"></div></div>62%</div></td><td><span class="status-pill review">Needs Review</span></td></tr>
+              <tr><td class="mono">DOC-44924</td><td>Closing Disclosure</td><td><div class="conf-wrap"><div class="conf-bar"><div class="conf-fill" style="width:99%;"></div></div>99%</div></td><td><span class="status-pill approved">Auto-Approved</span></td></tr>
+              <tr><td class="mono">DOC-44925</td><td>ID Verification</td><td><div class="conf-wrap"><div class="conf-bar"><div class="conf-fill low" style="width:71%;"></div></div>71%</div></td><td><span class="status-pill review">Needs Review</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-wrap">
+      <span class="illus-tag">Illustrative Reconstruction — Not Actual Product UI</span>
+      <div class="mockup-frame">
+        <div class="mockup-bar"><span class="mdot"></span><span class="mdot"></span><span class="mdot"></span><span class="mockup-url">app.internal / validation / rules-engine</span></div>
+        <div class="mockup-body">
+          <p class="mockup-title">Rules Engine — Validation Output</p>
+          <table class="mtable">
+            <thead><tr><th>Field</th><th>Extracted Value</th><th>Rule Check</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Borrower Name</td><td class="mono">J. Alvarez</td><td>Cross-doc name match</td><td><span class="status-pill pass">Pass</span></td></tr>
+              <tr><td>SSN Format</td><td class="mono">***-**-4471</td><td>Format + checksum</td><td><span class="status-pill pass">Pass</span></td></tr>
+              <tr><td>Stated Income</td><td class="mono">$8,240 / mo</td><td>Income vs. pay stub variance</td><td><span class="status-pill pass">Pass</span></td></tr>
+              <tr><td>DTI Ratio</td><td class="mono">38%</td><td>Threshold ≤ 43%</td><td><span class="status-pill pass">Pass</span></td></tr>
+              <tr><td>Document Expiration</td><td class="mono">Exp. 03/2027</td><td>Not expired</td><td><span class="status-pill pass">Pass</span></td></tr>
+              <tr><td>Address Match</td><td class="mono">Partial mismatch</td><td>Cross-doc address match</td><td><span class="status-pill flag">Flag</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h3 class="sec-title">Outcome</h3>
+    <div class="outcome-ledger">
+      <div class="outcome-item"><span class="outcome-num">92%</span><span class="outcome-label">Validation Accuracy</span></div>
+      <div class="outcome-item"><span class="outcome-num">100Ks</span><span class="outcome-label">Loans / Month</span></div>
+      <div class="outcome-item"><span class="outcome-num">1M+</span><span class="outcome-label">Documents / Month</span></div>
+      <div class="outcome-item"><span class="outcome-num">↓</span><span class="outcome-label">Manual Review Eliminated</span></div>
+    </div>
+    <div class="biz-note">
+      <h4>Beyond the Numbers</h4>
+      <p>At 92% accuracy and this volume, the platform eliminated manual review as the default path — human review became the exception, reserved for the cases the model itself flagged as uncertain, rather than a step every document had to pass through. That shift in where human effort gets spent is what made the product viable to sell externally, not just run internally.</p>
+    </div>
+  </section>
+
+  <div class="nav-footer">
+    <a href="case-origination-reform.html">← Previous: Loan Origination Reform</a>
+    <a href="omar-binalshaikh-portfolio.html">Back to Portfolio →</a>
+  </div>
+
+</div>
+</body>
+</html>
