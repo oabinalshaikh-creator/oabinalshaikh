@@ -35,7 +35,7 @@ With 12+ years in product management and extensive experience building AI/ML and
 
 ## 🧠 Featured Product Work
 
-### 🏦 AI-Enhanced Loan Origination
+[### 🏦 AI-Enhanced Loan Origination](https://github.com/oabinalshaikh-creator/Loan-Origination-Reform.git)
 
 Redesigned the loan origination workflow using AI-enhanced intake, automated income and document validation, and rules-based underwriting automation.
 
