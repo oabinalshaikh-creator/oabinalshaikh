@@ -35,7 +35,7 @@ With 12+ years in product management and extensive experience building AI/ML and
 
 ## 🧠 Featured Product Work
 
-[### 🏦 AI-Enhanced Loan Origination](https://github.com/oabinalshaikh-creator/Loan-Origination-Reform.git)
+[🏦 AI-Enhanced Loan Origination](https://github.com/oabinalshaikh-creator/Loan-Origination-Reform.git)
 
 Redesigned the loan origination workflow using AI-enhanced intake, automated income and document validation, and rules-based underwriting automation.
 
@@ -45,7 +45,7 @@ Redesigned the loan origination workflow using AI-enhanced intake, automated inc
 
 ---
 
-[### 🤖 Data Validation Platform](https://github.com/oabinalshaikh-creator/Data-Validation.git)
+[🤖 Data Validation Platform](https://github.com/oabinalshaikh-creator/Data-Validation.git)
 
 Owned a B2B AI/ML data validation platform combining:
 
