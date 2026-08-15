@@ -10,9 +10,9 @@
 
 <br>
 
-[![Live Portfolio](https://img.shields.io/badge/View_the_Portfolio-C9A227?style=for-the-badge&logo=github&logoColor=0A0D14)](https://oabinalshaikh-creator.github.io/oabinalshaikh/)
+[![Live Portfolio](https://img.shields.io/badge/View_the_Portfolio-101A2B?style=for-the-badge&logoColor=white)](https://oabinalshaikh-creator.github.io/oabinalshaikh/)
+[![Email](https://img.shields.io/badge/Email_Me-D4A82E?style=for-the-badge&logo=maildotru&logoColor=101A2B)](mailto:oabinalshaikh@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/omarbinalshaikh)
-[![Email](https://img.shields.io/badge/Email-C2456A?style=for-the-badge&logo=gmail&logoColor=white)](mailto:oabinalshaikh@gmail.com)
 
 <br>
 
