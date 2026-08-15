@@ -21,12 +21,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <script>
-/* Runs before first paint: apply saved theme and enable JS-gated animation. */
+/* Runs before first paint: light is the default; enable JS-gated animation. */
 (function(){
-  try{
-    var t = localStorage.getItem('theme');
-    if(t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
-  }catch(e){}
+  document.documentElement.removeAttribute('data-theme');
   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     document.documentElement.className += ' js';
   }
@@ -188,13 +185,19 @@ main,header,footer{position:relative;z-index:2;}
 }
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:'Newsreader',serif;font-size:17.5px;font-weight:600;white-space:nowrap;}
 .brand-mark{
-  width:34px;height:34px;flex:none;border-radius:10px;
-  display:grid;place-items:center;
-  font-family:'IBM Plex Sans',sans-serif;font-size:13px;font-weight:600;
-  color:var(--brand-fg);background:var(--brand-bg);
-  box-shadow:var(--shadow-sm);
+  width:42px;height:42px;flex:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  color:var(--brand-fg);background:var(--ink);
+  box-shadow:var(--shadow-sm),inset 0 0 0 1px rgba(255,255,255,.1),inset 0 0 0 4px var(--ink),inset 0 0 0 5px rgba(242,210,116,.7);
   transition:transform .5s var(--ease), background .5s var(--ease), color .5s var(--ease);
 }
+.brand-mark svg{width:29px;height:29px;overflow:visible;}
+.brand-mark .signet-ring{fill:none;stroke:#F2D274;stroke-width:.7;opacity:.7;}
+.brand-mark .signet-letter{font-family:'Newsreader',Georgia,serif;font-style:italic;font-weight:600;fill:#fff;}
+.brand-mark .signet-b{fill:#F2D274;}
+.brand-mark .signet-divider{stroke:#F2D274;stroke-width:.55;opacity:.55;}
+[data-theme="dark"] .brand-mark{background:#E7C155;box-shadow:var(--shadow-sm),inset 0 0 0 1px rgba(16,26,43,.12),inset 0 0 0 4px #E7C155,inset 0 0 0 5px rgba(16,26,43,.65);}
+[data-theme="dark"] .brand-mark .signet-ring,[data-theme="dark"] .brand-mark .signet-divider{stroke:#101A2B;}[data-theme="dark"] .brand-mark .signet-letter{fill:#101A2B;}[data-theme="dark"] .brand-mark .signet-b{fill:#5C4310;}
 .brand:hover .brand-mark{transform:rotate(-8deg) scale(1.06);}
 .nav-links{display:flex;align-items:center;gap:28px;}
 .nav-links a{font-size:14px;color:var(--muted);text-decoration:none;position:relative;padding:4px 0;transition:color .25s var(--ease);}
@@ -252,9 +255,15 @@ h2.sec-title{
   font-weight:600;line-height:1.12;letter-spacing:-.018em;margin:0 0 16px;
 }
 /* per-word rise for section titles */
-.w{display:inline-block;}
-.js .w{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
-.js .in .w{opacity:1;transform:none;}
+.w{display:inline-block;will-change:transform,opacity,filter;}
+.js .w{opacity:.06;filter:blur(7px);transform:translateY(28px) rotate(1.5deg);transition:opacity .72s var(--ease),transform .78s var(--ease),filter .72s var(--ease);}
+.js .in .w{opacity:1;filter:blur(0);transform:none;}
+h2.sec-title::after{content:'';display:block;width:54px;height:2px;margin-top:22px;border-radius:99px;background:linear-gradient(90deg,var(--gold-bright),var(--rose));transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) .45s;}
+h2.sec-title.in::after,.sec-head.in h2.sec-title::after{transform:scaleX(1);}
+.sec-head.center h2.sec-title::after{margin-left:auto;margin-right:auto;}
+.card h3,.case h3,.step h4,.cred-block .d-name{transition:opacity .7s var(--ease) .12s,transform .75s var(--ease) .12s,filter .7s var(--ease) .12s;}
+.js .card.reveal h3,.js .case.reveal h3,.js .step.reveal h4,.js .cred-block.reveal .d-name{opacity:.12;filter:blur(5px);transform:translateY(14px);}
+.js .card.reveal.in h3,.js .case.reveal.in h3,.js .step.reveal.in h4,.js .cred-block.reveal.in .d-name{opacity:1;filter:none;transform:none;}
 .sec-lede{color:var(--muted);font-size:17px;line-height:1.72;margin:0;max-width:60ch;}
 .sec-head.center .sec-lede{margin-left:auto;margin-right:auto;}
 
@@ -527,6 +536,83 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
 .foot-inner a:hover{color:var(--gold);}
 .foot-links{display:flex;gap:24px;flex-wrap:wrap;}
 
+/* ============ executive finish ============ */
+body::after{
+  content:'';position:fixed;inset:0;z-index:70;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+.hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;}
+.hero-kicker strong{color:var(--gold);font-weight:600;}
+.portrait-wrap{width:min(390px,80vw);}
+.portrait-frame{inset:22px -22px -22px 22px;border-radius:30px;}
+.portrait{border-radius:30px;aspect-ratio:4/5;}
+.portrait::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 54%,rgba(9,17,31,.6));pointer-events:none;}
+.portrait-caption{position:absolute;left:24px;right:24px;bottom:20px;z-index:2;color:#fff;display:flex;justify-content:space-between;align-items:end;gap:18px;}
+.portrait-caption b{font-family:'Newsreader',serif;font-size:22px;font-weight:500;line-height:1.05;}
+.portrait-caption span{font-family:'IBM Plex Mono',monospace;font-size:9px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase;text-align:right;color:rgba(255,255,255,.72);}
+.signal-card{position:absolute;z-index:4;width:174px;padding:15px 17px;border:1px solid var(--line-2);border-radius:14px;background:var(--nav-glass);backdrop-filter:blur(16px) saturate(160%);box-shadow:var(--shadow-md);}
+.signal-card.top{right:-86px;top:54px;}
+.signal-card.bottom{left:-84px;top:235px;bottom:auto;}
+.signal-card small{display:block;font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted-2);margin-bottom:6px;}
+.signal-card strong{font-family:'Newsreader',serif;font-size:20px;line-height:1.1;font-weight:600;}
+.signal-card em{display:block;margin-top:5px;font-size:10.5px;font-style:normal;color:var(--sage);}
+.case-visual{height:142px;margin:-34px -32px 28px;position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:#101a2b;}
+.case-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(242,210,116,.25),transparent 30%),linear-gradient(135deg,#101a2b,#203858);}
+.case-visual.validation::before{background:radial-gradient(circle at 78% 25%,rgba(111,206,169,.26),transparent 32%),linear-gradient(135deg,#101a2b,#173c3a);}
+.flow-line{position:absolute;left:9%;right:9%;top:50%;height:1px;background:rgba(255,255,255,.2);}
+.flow-line::after{content:'';position:absolute;inset:-1px 35% -1px 0;background:linear-gradient(90deg,#f2d274,transparent);}
+.flow-node{position:absolute;top:50%;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);background:#f2d274;box-shadow:0 0 0 7px rgba(242,210,116,.1);}
+.flow-line + .flow-node{left:16%;}.flow-line + .flow-node + .flow-node{left:50%;}.flow-line + .flow-node + .flow-node + .flow-node{left:84%;}
+.validation .flow-node{background:#6fcea9;box-shadow:0 0 0 7px rgba(111,206,169,.1);}
+.flow-label{position:absolute;top:calc(50% + 22px);transform:translateX(-50%);font:500 8px 'IBM Plex Mono',monospace;letter-spacing:.13em;color:rgba(255,255,255,.62);text-transform:uppercase;}
+.flow-label.l1{left:16%}.flow-label.l2{left:50%}.flow-label.l3{left:84%}
+.nav::before{content:'';position:absolute;inset:7px max(12px,calc((100vw - var(--maxw))/2 - 12px));border:1px solid transparent;border-radius:999px;pointer-events:none;transition:.4s var(--ease);}
+.nav.stuck{border-bottom-color:transparent;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;}
+.nav.stuck::before{background:var(--nav-glass);border-color:var(--line);box-shadow:var(--shadow-md);backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);}
+.nav>*{position:relative;z-index:1;}
+.manifesto{padding:132px 0;overflow:hidden;}
+.manifesto-grid{display:grid;grid-template-columns:150px 1fr;gap:48px;align-items:start;}
+.manifesto-index{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding-top:13px;}
+.manifesto h2{font-family:'Newsreader',serif;font-size:clamp(42px,7vw,86px);font-weight:500;line-height:.98;letter-spacing:-.04em;margin:0;max-width:12ch;}
+.manifesto h2 em{font-weight:400;color:var(--gold);position:relative;display:inline;}
+.manifesto h2.reveal{opacity:1;transform:none;}
+.manifesto .mw{display:inline-block;opacity:.08;filter:blur(9px);transform:translateY(42px) rotate(2deg);transition:opacity .8s var(--ease),transform .9s var(--ease),filter .8s var(--ease);transition-delay:var(--d);}
+.manifesto h2.in .mw{opacity:1;filter:blur(0);transform:none;}
+.manifesto h2 em::after{content:'';position:absolute;left:0;right:0;bottom:.02em;height:.08em;border-radius:999px;background:linear-gradient(90deg,var(--gold-bright),var(--rose));transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease) 1s;}
+.manifesto h2.in em::after{transform:scaleX(1);}
+.manifesto-index{position:relative;}
+.manifesto-index::after{content:'';display:block;width:1px;height:82px;margin:20px 0 0 3px;background:linear-gradient(var(--gold-bright),transparent);transform:scaleY(0);transform-origin:top;transition:transform 1s var(--ease) .3s;}
+.manifesto-index.in::after{transform:scaleY(1);}
+.manifesto-foot{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);}
+.manifesto-foot p{margin:0;color:var(--muted);max-width:42ch;font-size:15px;}
+.manifesto-principles{display:flex;flex-wrap:wrap;gap:8px;align-content:start;}
+.manifesto-principles span{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;padding:8px 12px;border:1px solid var(--line-2);border-radius:999px;background:var(--paper-2);}
+.case.featured{min-height:550px;}
+.case.featured .case-visual{height:190px;}
+.case.plain{min-height:300px;background:color-mix(in srgb,var(--paper-2) 90%,transparent);}
+.case.plain:nth-child(3),.case.plain:nth-child(6){transform:translateY(20px);}
+.case.plain:nth-child(3):hover,.case.plain:nth-child(6):hover{transform:translateY(20px);}
+.case-visual .visual-no{position:absolute;right:22px;top:10px;font:500 86px/1 'Newsreader',serif;color:rgba(255,255,255,.055);letter-spacing:-.08em;}
+.case-visual .visual-result{position:absolute;left:22px;top:18px;font:500 9px 'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62);}
+.case-visual .visual-result strong{display:block;margin-top:5px;font:500 20px 'Newsreader',serif;letter-spacing:0;text-transform:none;color:#fff;}
+.contact-card{isolation:isolate;}
+.contact-card::after{content:'LET\2019S BUILD';position:absolute;left:50%;bottom:-.18em;transform:translateX(-50%);white-space:nowrap;font:600 clamp(72px,13vw,170px)/1 'Newsreader',serif;letter-spacing:-.06em;color:rgba(255,255,255,.035);z-index:0;}
+@media (max-width:1120px){.signal-card.top{right:-28px}.signal-card.bottom{left:-28px}}
+@media (max-width:940px){.signal-card.top{right:-70px}.signal-card.bottom{left:-70px}.portrait{aspect-ratio:1/1.08}}
+@media (max-width:700px){.manifesto{padding:90px 0}.manifesto-grid{grid-template-columns:1fr;gap:18px}.manifesto-foot{grid-template-columns:1fr}.case.plain:nth-child(3),.case.plain:nth-child(6),.case.plain:nth-child(3):hover,.case.plain:nth-child(6):hover{transform:none}}
+@media (max-width:700px){
+  .wrap{padding-left:20px;padding-right:20px}section{padding:76px 0}.hero{padding:108px 0 68px}.hero-grid{gap:58px}.portrait-wrap{order:initial;width:min(330px,82vw)}
+  .hero h1{font-size:clamp(40px,12vw,58px);line-height:1.01}.hero-sub{font-size:16px;line-height:1.65}.hero-actions{display:grid;grid-template-columns:1fr}.hero-actions .btn{justify-content:center;min-height:52px}
+  .hero-proof{display:grid;grid-template-columns:1fr 1fr;gap:20px 0}.proof{padding:0 18px 0 0;margin:0 18px 0 0}.proof:nth-child(2){border-right:0}.proof:last-child{grid-column:1/-1;border-top:1px solid var(--line);padding-top:18px}
+  .sec-head{margin-bottom:36px}.sec-lede{font-size:15.5px}.band{padding:76px 0}.metric{padding:28px 22px}
+  .cards{grid-template-columns:1fr}.card{padding:28px 24px}.case.featured,.case.plain{min-height:0}.stack-grid{gap:26px}.contact-card{border-radius:20px}
+  .nav{padding-left:20px;padding-right:20px}.nav::before{left:8px;right:8px}.brand>span:last-child{font-size:15px}
+}
+@media (max-width:560px){body::after{opacity:.025}.signal-card{display:none}.portrait-caption{left:18px;right:18px}.hero-kicker{margin-top:8px}.case-visual{height:120px;margin:-28px -22px 24px}.case.featured .case-visual{height:150px}.manifesto{padding:76px 0}.manifesto h2{font-size:clamp(40px,13vw,58px)}.manifesto-foot{margin-top:34px}.contact-actions{display:grid}.contact-actions .btn{justify-content:center;width:100%;overflow-wrap:anywhere}.foot-inner{align-items:flex-start;flex-direction:column}.foot-links{gap:18px}}
+@media (hover:none){.card:hover,.case:hover,.cred-block:hover,.pill:hover,.btn:hover{transform:none}.portrait-wrap:hover .portrait img{transform:none}.portrait::after{display:none}}
+.download-link{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line-2);border-radius:50%;background:var(--paper-2);box-shadow:var(--shadow-sm);color:var(--ink);text-decoration:none;}
+.download-link:hover{border-color:var(--gold-bright);transform:translateY(-2px)}.download-link svg{width:17px;height:17px}
+
 /* ============ reveal ============ */
 .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease), transform .8s var(--ease);}
 .js .reveal.in{opacity:1;transform:none;}
@@ -540,9 +626,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
   html{scroll-behavior:auto;}
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;}
   .js .reveal,.js .up,.js .w{opacity:1;transform:none;}
+  .js .w,.js .card.reveal h3,.js .case.reveal h3,.js .step.reveal h4,.js .cred-block.reveal .d-name{filter:none;opacity:1;transform:none;}
+  h2.sec-title::after{transform:scaleX(1);}
   .hero h1 .mark::after{transform:scaleX(1);}
   #particles,.blob,#cursorglow{display:none;}
   .marquee-track{animation:none;}
+  .manifesto .mw{opacity:1;filter:none;transform:none;}.manifesto h2 em::after{transform:scaleX(1);}.manifesto-index::after{transform:scaleY(1);}
 }
 </style>
 </head>
@@ -562,7 +651,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
 
 <header class="nav" id="nav">
   <a class="brand" href="#top">
-    <span class="brand-mark">OB</span>
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><circle class="signet-ring" cx="16" cy="16" r="13.2"/><path class="signet-divider" d="M16 8.5v15"/><text class="signet-letter" x="4.8" y="21.2" font-size="16">O</text><text class="signet-letter signet-b" x="17" y="21.5" font-size="16">B</text></svg></span>
     <span>Omar BinAlshaikh</span>
   </a>
   <nav class="nav-links" id="navlinks">
@@ -573,6 +662,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
     <a href="#credentials">Credentials</a>
   </nav>
   <div class="nav-right">
+    <a class="download-link" href="output/pdf/Omar-BinAlshaikh-Portfolio.pdf" download aria-label="Download portfolio PDF" title="Download portfolio PDF"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg></a>
     <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2 12h2.4M19.6 12H22M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -589,8 +679,9 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
       <div class="hero-grid">
         <div>
           <p class="status up d1"><span class="pulse"></span> Open to new opportunities</p>
-          <h1 class="up d2">Turning regulated, document-heavy workflows into <span class="mark">AI&#8209;native systems</span>.</h1>
-          <p class="hero-sub up d3">Principal Product Manager with 12+ years across mortgage and financial services — domains where a wrong answer isn't a bug, it's a <strong>compliance event</strong>. I connect business strategy, technology, and measurable outcomes.</p>
+          <p class="hero-kicker up d1"><strong>Principal Product Leader</strong> · AI / Data / FinTech</p>
+          <h1 class="up d2">I turn operational complexity into <span class="mark">intelligent products</span>.</h1>
+          <p class="hero-sub up d3">For 12+ years, I’ve built AI and data products inside regulated financial workflows—where trust is earned in the details and every launch must create a <strong>measurable business outcome</strong>.</p>
           <div class="hero-actions up d4">
             <a class="btn btn-primary magnetic" href="#contact">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
@@ -599,6 +690,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
             <a class="btn btn-ghost magnetic" href="#work">
               View selected work
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost magnetic" href="output/pdf/Omar-BinAlshaikh-Portfolio.pdf" download>
+              Download portfolio
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
             </a>
           </div>
           <div class="hero-proof up d5">
@@ -613,9 +708,12 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
           <div class="portrait-tilt" id="ptilt">
             <div class="portrait">
               <img src="assets/omar-binalshaikh.jpg" alt="Portrait of Omar BinAlshaikh" width="460" height="460" fetchpriority="high">
+              <div class="portrait-caption"><b>Omar<br>BinAlshaikh</b><span>Product strategy<br>Technical execution</span></div>
             </div>
           </div>
-          <div class="portrait-tag"><span class="dot"></span> Principal Product Manager</div>
+          <div class="signal-card top" aria-hidden="true"><small>Operating scale</small><strong>100K+</strong><em>transactions / month</em></div>
+          <div class="signal-card bottom" aria-hidden="true"><small>Business impact</small><strong>$3.3M+</strong><em>annual overhead removed</em></div>
+          <div class="portrait-tag"><span class="dot"></span> Strategy × Systems × Scale</div>
         </div>
       </div>
     </div>
@@ -631,6 +729,20 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
       <span>0→1 Product</span><span>Regulated FinTech</span><span>Cross-Functional Leadership</span>
     </div>
   </div>
+
+  <!-- ================= POINT OF VIEW ================= -->
+  <section class="manifesto">
+    <div class="wrap manifesto-grid">
+      <div class="manifesto-index reveal">01 / Point of view</div>
+      <div>
+        <h2 class="reveal"><span class="mw" style="--d:.02s">Complexity</span> <span class="mw" style="--d:.12s">isn’t</span> <span class="mw" style="--d:.22s">the</span> <span class="mw" style="--d:.32s">enemy.</span> <em><span class="mw" style="--d:.48s">Unclear</span> <span class="mw" style="--d:.6s">thinking</span> <span class="mw" style="--d:.72s">is.</span></em></h2>
+        <div class="manifesto-foot reveal">
+          <p>I make complicated systems understandable, turn ambiguity into product direction, and build the operating confidence teams need to move.</p>
+          <div class="manifesto-principles" aria-label="Product principles"><span>Clarity first</span><span>Evidence over theater</span><span>Humans where judgment matters</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ================= IMPACT BAND ================= -->
   <section class="band" id="impact">
@@ -671,7 +783,8 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
       </div>
       <div class="cases">
 
-        <a class="case reveal" href="case-origination-reform.html" data-ghost="01">
+        <a class="case featured reveal" href="case-origination-reform.html" data-ghost="01">
+          <div class="case-visual" aria-hidden="true"><span class="visual-result">Cycle-time transformation<strong>15 days → 5 days</strong></span><span class="visual-no">01</span><span class="flow-line"></span><span class="flow-node"></span><span class="flow-node"></span><span class="flow-node"></span><span class="flow-label l1">Intake</span><span class="flow-label l2">Decision</span><span class="flow-label l3">Close</span></div>
           <div class="case-top">
             <div><span class="case-no">NO. 001</span><h3>Loan Origination Reform</h3></div>
             <span class="chip">15d → 5d</span>
@@ -683,7 +796,8 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
           </span>
         </a>
 
-        <a class="case reveal" href="case-data-validation.html" data-ghost="04">
+        <a class="case featured reveal" href="case-data-validation.html" data-ghost="04">
+          <div class="case-visual validation" aria-hidden="true"><span class="visual-result">AI-native data quality<strong>From document to decision</strong></span><span class="visual-no">04</span><span class="flow-line"></span><span class="flow-node"></span><span class="flow-node"></span><span class="flow-node"></span><span class="flow-label l1">Classify</span><span class="flow-label l2">Validate</span><span class="flow-label l3">Deliver</span></div>
           <div class="case-top">
             <div><span class="case-no">NO. 004</span><h3>Data Validation Platform</h3></div>
             <span class="chip sage">B2B · AI/ML</span>
@@ -915,7 +1029,7 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
     <div class="wrap">
       <div class="contact-card reveal">
         <p class="eyebrow">Connect</p>
-        <h2>Let's talk about AI products that have to be right.</h2>
+        <h2 class="split">Let's talk about AI products that have to be right.</h2>
         <p>If you're hiring for AI products, data products, FinTech, or technical product management — I'd like to hear about it.</p>
         <div class="contact-actions">
           <a class="btn btn-gold magnetic" href="mailto:oabinalshaikh@gmail.com">
@@ -925,6 +1039,10 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
           <a class="btn btn-ghost magnetic" href="https://www.linkedin.com/in/omarbinalshaikh" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.4 8.65 21 11.1 21 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H9z"/></svg>
             LinkedIn
+          </a>
+          <a class="btn btn-ghost magnetic" href="output/pdf/Omar-BinAlshaikh-Portfolio.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
+            Download PDF
           </a>
         </div>
       </div>
@@ -963,15 +1081,14 @@ footer{border-top:1px solid var(--line);padding:34px 0 44px;margin-top:96px;}
     toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
     if(meta) meta.setAttribute('content', dark ? '#0F1725' : '#FBFAF8');
   }
-  applyTheme(root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  applyTheme('light');
   toggle.addEventListener('click', function(){
     var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     applyTheme(next);
-    try{ localStorage.setItem('theme', next); }catch(e){}
   });
 
   /* ---------- split section titles into words ---------- */
-  document.querySelectorAll('.sec-title.split').forEach(function(h){
+  document.querySelectorAll('.sec-title.split,.contact-card h2.split').forEach(function(h){
     var words = h.textContent.split(' ');
     h.textContent = '';
     words.forEach(function(word, i){
